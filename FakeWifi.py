@@ -6,12 +6,14 @@
 # sudo iwconfig wlan0 mode monitor
 # sudo ifconfig wlan0 up
 # sudo iwconfig wlan0
-import sys, getopt, json, time
+import sys, getopt, json, time, commands
 from subprocess import Popen
 from pprint import pprint
 from random import randint
 physicalCard = 'wlan0'
 def startFakeWifi(argv):
+
+
 	duration = 4
 	fileName = ""
 	now_aps = []
@@ -23,6 +25,11 @@ def startFakeWifi(argv):
 		print len(argv)
 		exit();
 	print fileName + ' with duration:'+duration
+	
+
+	commands.getoutput("ifconfig "+physicalCard+" down")
+	commands.getoutput("iwconfig "+physicalCard+" mode monitor")
+	commands.getoutput("ifconfig "+physicalCard+" up")
 	while 2>1:
 		with open(fileName) as data_file:    
 		    path = json.load(data_file)
